@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>送花-代理模式</title>
+</head>
+<body>
+    <script>
+        // 陈松涛在想送什么花。打印出来小美收到了什么花
+        // class new
+        
+        // {}JSON 对象字面量
+    const wjd={
+        name:"吴江东",
+        hometown:"赣州",
+        single:false,
+        room:"1315"
+    }
+    // JS 极具表现力的语言
+    // 对象字面量
+    const cst={
+        // 属性
+        name:"陈松涛",
+        single:true,
+        hometown:"高安",
+        hobbies:["桌球","下棋","游戏"],
+        yz:75,
+        // 送花  目标
+        // target 形参
+        send_flower(target){
+            target.receiveFlower(cst);
+        }
+    };
+    const xm={
+        name:"小美",
+        receiveFlower(sender){
+            // console.log("收到花");
+            // 颜值 85以上
+            if(sender.yz<85){
+                console.log("你是个好人");
+            }
+            else{
+                console.log("小哥哥来玩啊");
+            }
+        },
+        // 心情
+        listenGoodMod(fn){
+            console.log("心情不好");
+            // 定时器，三秒后接受
+            setTimeout(function(){
+                cst.yz=88;
+                console.log("好嗨哟");  
+                fn();
+            },3000);
+        }
+    }   
+    const xh={
+        name:"小红",
+        hometown:"高安",
+        sex:"女",
+        receiveFlower(sender){
+            // 代理对象，实现复杂需求，监听小美的心情，3秒后心情好了再送
+            xm.listenGoodMod(function(){
+                // sender.send_flower(xm);
+                 xm.receiveFlower(sender);
+            });
+            
+            // if(sender.name==="陈松涛"){
+            //     // console.log("我的天哪");
+
+            // }
+            // else{
+            //     console.log("玩蛋去");
+            // }
+        }
+    } 
+    </script>
+</body>
+</html>
