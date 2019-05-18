@@ -51,6 +51,9 @@ img{
     z-index: 1000;
     display: none;
 }
+.layer1{
+    display: none;
+}
 .loadImg{
     position: absolute;
     top: 50%;
@@ -274,4 +277,31 @@ img{
 .layer .ft .btn4::before{
     background: url('http://mat1.gtimg.com/sports/worldcup2014/match/btn_arr_4.png') top center no-repeat;
     background-size: 51px 12px;
+}
+
+/* 淘汰赛赛程 */
+.layer2{
+    background-color: #f9ffe7;
+    position: relative;
+}
+.hd_bd{
+    border-width: 30px 15px 8px 15px;
+    border-style: solid;
+    position: relative;
+    text-align: center;
+    line-height: 30;
+    z-index: 2;
+}
+.layer2 .hd_bd{
+    color: #435d50;
+    border-color: #fff #55b852 #55b852 #55b852;
+}
+.hd_bd .tit{
+    color: #435d50;
+    font-size: 18px;
+    position: absolute;
+    width: 100%;
+    top: -30px;
+    left: 0;
+    
 }
