@@ -11,4 +11,7 @@
       bind:error="_error"
       bind:success="_success">
   </popup>
+
+  <test catch:onTextChange="onTextChange" id="myComponent"></test>
+  <button catch:tap="change">点击改变文字内容</button>
 </view>
