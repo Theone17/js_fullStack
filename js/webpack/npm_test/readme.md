@@ -1,0 +1,2 @@
+- /node_modules
+    不需要被提交的
