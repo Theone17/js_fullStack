@@ -55,6 +55,7 @@ export default {
     float: left;
     width: 250px;
     text-align: center;
+    font-size: 20px;
   }
   .user-info {
     float: right;
