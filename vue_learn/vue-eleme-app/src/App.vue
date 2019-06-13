@@ -33,7 +33,7 @@ export default {
   created () {
     this.$http.get('https://www.easy-mock.com/mock/5d00b09c1bc93d0bae07b23d/eleme/vue-eleme-seller')
       .then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.data.errno === 0) {
           this.seller = Object.assign({}, this.seller, res.data.data)
         }
@@ -61,7 +61,7 @@ export default {
         color rgb(77, 85, 93)
         text-decoration none
 
-        &.active
+        &.router-link-active
           color rgb(240, 20, 20)
 
 </style>
