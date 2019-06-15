@@ -6,13 +6,15 @@
         <router-link to="/goods">商品</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/ratings">评论</router-link>
+        <router-link to="ratings">评论</router-link>
       </div>
       <div class="tab-item">
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -33,7 +35,7 @@ export default {
   created () {
     this.$http.get('https://www.easy-mock.com/mock/5d00b09c1bc93d0bae07b23d/eleme/vue-eleme-seller')
       .then(res => {
-        // console.log(res)
+        console.log(res)
         if (res.data.errno === 0) {
           this.seller = Object.assign({}, this.seller, res.data.data)
         }
@@ -43,25 +45,24 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import './common/stylus/mixin.styl'
-  .tab
-    display flex
-    width 100%
-    height 40px
-    line-height 40px
-    border-bottom 1px solid rgba(7, 17, 27, 0.1)
-    border-1px(rgba(7, 17, 27, 0.1))
-    .tab-item
-      flex 1
-      text-align center
+@import './common/stylus/mixin.styl'
+.tab
+  display flex
+  width 100%
+  height 40px
+  line-height 40px
+  border-bottom 1px solid rgba(7, 17, 27, 0.1)
+  border-1px(rgba(7, 17, 27, 0.1))
+  .tab-item
+    flex 1
+    text-align center
 
-      & > a
-        display block
-        font-size 14px
-        color rgb(77, 85, 93)
-        text-decoration none
+    & > a
+      display block
+      font-size 14px
+      color rgb(77, 85, 93)
+      text-decoration none
 
-        &.router-link-active
-          color rgb(240, 20, 20)
-
+      &.router-link-active
+        color rgb(240, 20, 20)
 </style>

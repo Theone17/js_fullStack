@@ -1,30 +1,34 @@
 <template>
   <div>
     <div class="goods">
-      <div class="menu-wrapper" ref="menuWrapper">    <!-- ref 获取dom结构 -->
+      <div class="menu-wrapper" ref="menuWrapper">
         <ul>
-          <li 
-          v-for="(item, index) in goods"
-          :key="index"
-          class="menu-item"
-          :class="{'current' : currentIndex === index}"
-          @click="selectMenu(index, $event)"
+          <li
+            v-for="(item,index) in goods"
+            :key="index"
+            class="menu-item"
+            :class="{'current':currentIndex===index}"
+            @click="selectMenu(index,$event)"
           >
-          <span class="text border-1px">
-            <span class="icon" v-show="item.type > 0" :class="classMap[item.type]"></span>
-            {{item.name}}
-          </span>
+            <span class="text border-1px">
+              <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>
+              {{item.name}}
+            </span>
           </li>
         </ul>
       </div>
       <div class="foods-wrapper" ref="foodsWrapper">
         <ul>
-          <li v-for="(item, index) in goods" :key="index" class="food-list" ref="foodList">
+          <li v-for="(item,index) in goods" :key="index" class="food-list" ref="foodList">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li v-for="(food, index) in item.foods" :key="index" class="food-item border-1px">
+              <li
+                v-for="(food,index) in item.foods"
+                :key="index"
+                class="food-item border-1px"
+              >
                 <div class="icon">
-                  <img :src="food.icon" width="57" height="57" alt="">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
@@ -37,9 +41,8 @@
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-                  <!-- 添加组件+ -->
                   <div class="cartcontrol-wrapper">
-                    <cartcontrol :food="food" @add="addFood"></cartcontrol>
+                    <cartcontrol @add="addFood" :food="food"></cartcontrol>
                   </div>
                 </div>
               </li>
@@ -47,6 +50,10 @@
           </li>
         </ul>
       </div>
+      <shopcart ref="shopcart" :selectFoods="selectFoods" 
+        :deliveryPrice="seller.deliveryPrice"
+        :minPrice="seller.minPrice"
+      ></shopcart>
     </div>
   </div>
 </template>
@@ -54,31 +61,88 @@
 <script>
 import BScroll from 'better-scroll'
 import cartcontrol from '@/components/cartcontrol/cartcontrol'
+import shopcart from '@/components/shopcart/shopcart'
 export default {
   name: 'Goods',
+  props: {
+    seller: {
+      type: Object
+    }
+  },
   data () {
     return {
-      classMap: [],
-      goods: []
+      goods: [],
+      listHeight: [],
+      scrollY: 0
+    }
+  },
+  computed: {
+    currentIndex () {
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height1 = this.listHeight[i]
+        let height2 = this.listHeight[i + 1]
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          return i
+        }
+      }
+      return 0
+    },
+    selectFoods () {
+      let foods = []
+      this.goods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   components: {
-    cartcontrol
+    cartcontrol,
+    shopcart
   },
   methods: {
-    _initScroll () {
+    selectMenu (index, event) {
+      if (!event._constructed) {
+        return
+      }
+      let foodList = this.$refs.foodList
+      let el = foodList[index]
+      this.foodsScroll.scrollToElement(el, 300)
+    },
+    addFood(target) {
+      this._drop(target);
+    },
+    _drop(target) {
+      // 体验优化,异步执行下落动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
+    },
+    _initScroll() {
       this.menuScroll = new BScroll(this.$refs.menuWrapper, {
         click: true
       })
-    },
-    addFood (target) {
-      this._drop(target)
-    },
-    _drop (target) {
-      // 体验优化，异步执行下落动画
-      this.$nextTick(() => {    // 确保页面加载完成后才会执行
-        // 动画组件
+      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+        click: true,
+        probeType: 3
       })
+      this.foodsScroll.on('scroll', pos => {
+        // console.log(pos)
+        this.scrollY = Math.abs(Math.round(pos.y))
+      })
+    },
+    _calculateHeight () {
+      let foodList = this.$refs.foodList
+      let height = 0
+      this.listHeight.push(height)
+      for (let i = 0; i < foodList.length; i++) {
+        let item = foodList[i]
+        height += item.clientHeight
+        this.listHeight.push(height)
+      }
     }
   },
   created () {
@@ -91,6 +155,7 @@ export default {
           this.goods = res.data.data
           this.$nextTick(() => { //页面渲染完成才能执行
             this._initScroll()
+            this._calculateHeight()
           })
         }
       })
@@ -128,7 +193,7 @@ export default {
         display table-cell
         width 56px
         vertical-align middle
-        border-1px(rgba(7, 17, 27, 0.1))
+        border-1px(rgba(7,17,27,0.1))
         font-size 12px
         .icon
           display inline-block
@@ -158,7 +223,7 @@ export default {
             bg-image('special_3');
           }
   .foods-wrapper
-    flex 1    // 占用剩下宽度
+    flex 1
     .title
       padding-left 14px
       height 26px
@@ -166,7 +231,7 @@ export default {
       border-left 2px solid #d9dde1
       font-size 12px
       color rgb(147, 153, 159)
-      background-color #f3f5f7
+      background #f3f5f7
     .food-item
       display flex
       margin 18px
@@ -187,10 +252,10 @@ export default {
           line-height 14px
           font-size 14px
           color rgb(7, 17, 27)
-        .desc, .extra
+        .desc,.extra
           line-height 10px
           font-size 10px
-          color rgb(143, 153, 159)
+          color rgb(147, 153, 159)
         .desc
           line-height 12px
           margin-bottom 8px
@@ -212,6 +277,4 @@ export default {
           position absolute
           right 0
           bottom 12px
-
 </style>
-
