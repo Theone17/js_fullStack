@@ -3,7 +3,7 @@
     <!-- 头部header -->
     <v-header>
       <i slot="left-icon" class="icon">&#xe692;</i>
-      <span slot="content">Magic music</span>
+      <span slot="content">Magic Music</span>
       <router-link to="/user" slot="right-icon">
         <i class="icon">&#xe63c;</i>
       </router-link>
@@ -45,16 +45,17 @@ export default {
     url("//at.alicdn.com/t/font_kmywdojzhchj8aor.woff") format("woff"),
     url("//at.alicdn.com/t/font_kmywdojzhchj8aor.ttf") format("truetype"),
     url("//at.alicdn.com/t/font_kmywdojzhchj8aor.svg#iconfont") format("svg")
+
 .icon
   font-family "icon" !important
   font-size 18px
   font-style normal
   color #ffffff
-html, body
+html,body
   line-height 1
   font-family PingFang SC, STHeitiSC-Light, Helvetica-Light, arial, sans-serif
   user-select none
-  -webkit-tap-highlight-color transparent 
+  -webkit-tap-highlight-color transparent
   background rgba(8, 5, 58, 0.9)
-  color #ffffff
+  color #fff
 </style>

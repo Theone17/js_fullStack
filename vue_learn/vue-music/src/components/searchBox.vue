@@ -1,12 +1,14 @@
+
 <template>
   <div class="search-box">
     <i class="icon icon-search">&#xe638;</i>
     <input type="text" ref="query" v-model="query" class="box" :placeholder="placeholder">
-    <i class="icon icon-dissmiss" v-show="query" @click="clear"></i>
+    <i class="icon icon-dismiss" v-show="query" @click="clear"></i>
   </div>
 </template>
 
 <script>
+import { debounce } from '@/common/util'
 export default {
   props: {
     placeholder: {
@@ -30,10 +32,14 @@ export default {
       this.$refs.query.blur()
     }
   },
+  created() {
+    this.$watch('query', debounce((newQuery) => {
+      this.$emit('query', newQuery)
+    }))
+  },
 }
 </script>
-
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '../assets/css/function'
 .search-box 
   display flex

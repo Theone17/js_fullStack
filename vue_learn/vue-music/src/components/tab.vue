@@ -39,4 +39,3 @@ export default {
         color #ea2448
         border-bottom 2px solid #ea2448
 </style>
-

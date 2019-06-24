@@ -3,9 +3,9 @@
     <div class="sidebar-con" :class="{showbar: showSidebar}">
       <div class="head">
         <div class="avatar">
-          <img src="https://img.tukuppt.com//ad_preview/00/03/96/5c98b52b46cbf.jpg!/fw/780" alt="">
+          <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1919326320,3728667730&fm=26&gp=0.jpg" alt="">
         </div>
-        <div class="name">xbin</div>
+        <div class="name">蜗牛</div>
       </div>
       <div class="menu">
         <ul>
@@ -15,31 +15,31 @@
               <span>个人中心</span>
             </router-link>
           </li>
-          <li @click="_hidebar">
+          <li>
             <router-link to="" @click="_hidebar">
               <i class="icon">&#xe631;</i>
               <span>音效调整</span>
             </router-link>
           </li>
-          <li @click="_hidebar">
+          <li>
             <router-link to="" @click="_hidebar">
               <i class="icon">&#xe65b;</i>
               <span>定时关闭</span>
             </router-link>
           </li>
-          <li @click="_hidebar">
+          <li>
             <router-link to="" @click="_hidebar">
               <i class="icon">&#xe601;</i>
               <span>听歌识曲</span>
             </router-link>
           </li>
-          <li @click="_hidebar">
+          <li>
             <router-link to="" @click="_hidebar">
               <i class="icon">&#xe600;</i>
               <span>帮助</span>
             </router-link>
           </li>
-          <li @click="_hidebar">
+          <li>
             <router-link to="" @click="_hidebar">
               <i class="icon">&#xe61f;</i>
               <span>设置</span>
@@ -56,7 +56,8 @@
 import { mapGetters } from 'vuex'
 export default {
   data () {
-    return {}
+    return {
+    }
   },
   computed: {
     ...mapGetters([
@@ -65,6 +66,7 @@ export default {
   },
   methods: {
     _hidebar () {
+      console.log(123)
       this.$store.dispatch('setShowSidebar', false)
     }
   }
@@ -143,4 +145,3 @@ export default {
     z-index 1001
     background rgba(0, 0, 0, 0.4)
 </style>
-

@@ -10,7 +10,7 @@ import '../static/css/reset.styl'
 
 import def_lazy_img from '../static/img/loading.gif'
 Vue.use(VueLazyload, {
-  loading: def_lazy_img
+  loading: def_lazy_img,
 })
 
 fastclick.attach(document.body)

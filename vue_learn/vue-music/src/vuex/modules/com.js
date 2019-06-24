@@ -19,8 +19,8 @@ const actions = {
   setShowSidebar ({commit}, status) {
     commit(types.COM_SHOW_SIDE_BAR, status)
   },
-  selectPlaySong ({commit}, status) {
-    // let playList = state.playList.slice()
+  selectPlaySong ({ commit }, status) {
+    // let playlist = state.playlist.slice()
     commit(types.SET_FULL_SCREEN, status)
   }
 }

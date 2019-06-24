@@ -1,12 +1,13 @@
 <template>
   <div class="play" v-show="playList.length>0">
     <!-- 播放页面 -->
-    <transition name="normal" 
-      @enter="enter" 
+    <transition 
+      name="normal"
+      @enter="enter"
       @after-enter="afterEnter"
       @leave="leave"
       @after-leave="afterLeave"
-      > 
+    >
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%" :src="(currentSong.al && currentSong.al.picUrl) || (currentSong.artists && currentSong.artists[0].img1v1Url)" alt="">
@@ -20,15 +21,21 @@
           <h2 class="subtitle" v-html="(currentSong.ar && currentSong.ar[0].name) || (currentSong.artists && currentSong.artists[0].name)"></h2>
         </div>
         <!-- 播放页面的内容 -->
-        <div class="middle" @touchstart.prevent="middleTouchStart"
-            @touchmove.prevent="middleTouchMove"
-            @touchend="middleTouchEnd"
-          >
+        <div class="middle" 
+        @touchstart.prevent="middleTouchStart"
+        @touchmove.prevent="middleTouchMove"
+        @touchend="middleTouchEnd"
+        >
           <div class="middle-l" ref="middleL">
             <div class="cd-wrapper" ref="cdWrapper">
               <div class="cd" ref="imageWrapper">
-                <img :src="(currentSong.al && currentSong.al.picUrl) || (currentSong.artists && currentSong.artists[0].img1v1Url)" 
-                  alt="" ref="image" :class="cdCls" class="image">
+                <img 
+                  :src="(currentSong.al && currentSong.al.picUrl) || (currentSong.artists && currentSong.artists[0].img1v1Url)" 
+                  alt=""
+                  ref="image"
+                  :class="cdCls"
+                  class="image"
+                >
               </div>
             </div>
             <div class="playing-lyric-wrapper">
@@ -38,12 +45,18 @@
         </div>
       </div>
     </transition>
-    <!-- 底部播放器 -->
+    <!-- 底部的播放器 -->
     <transition name="mini">
       <div class="mini-player" v-show="!fullScreen" @click="open">
         <div class="picture">
           <div class="imgWrapper" ref="miniWrapper">
-            <img ref="miniImage" :class="cdCls" width="40" height="40" v-lazy="(currentSong.al && currentSong.al.picUrl) || (currentSong.artists && currentSong.artists[0].img1v1Url)">
+            <img 
+              ref="miniImage"
+              :class="cdCls"
+              width="40"
+              height="40"
+              v-lazy="(currentSong.al && currentSong.al.picUrl) || (currentSong.artists && currentSong.artists[0].img1v1Url)"
+            >
           </div>
         </div>
         <div class="text">
@@ -61,7 +74,7 @@
           <i class="icon">&#xe927;</i>
         </div>
         <div class="bottom-progress-bar">
-          <div class="bottom-progress" :style="{width: (currentTime / duration).toFixed(3) * 100 + '%'}"></div>
+          <div class="bottom-progress" :style="{width: (currentTime / duration).toFixed(3)*100 + '%'}"></div>
         </div>
       </div>
     </transition>
@@ -69,7 +82,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -78,7 +91,7 @@ export default {
       playing: false,
       currentTime: 3,
       duration: 1,
-      playingLyric: '666'
+      playingLyric: '我叹服你的技巧'
     }
   },
   computed: {
@@ -94,8 +107,8 @@ export default {
       this.$store.dispatch('selectPlaySong', true)
     },
     enter () {},
-    leave () {},
     afterEnter () {},
+    leave () {},
     afterLeave () {},
     back () {
       this.$store.dispatch('selectPlaySong', false)
@@ -103,7 +116,7 @@ export default {
     middleTouchStart () {},
     middleTouchMove () {},
     middleTouchEnd () {}
-  },
+  }
 }
 </script>
 
@@ -118,7 +131,7 @@ export default {
     bottom 0
     right 0
     z-index 150
-    background-color rgb(8, 5, 58)
+    background rgb(8, 5, 58)
     .background
       position absolute
       left 0
@@ -163,7 +176,7 @@ export default {
       top px2rem(180px)
       bottom px2rem(340px)
       white-space nowrap
-      font-size 0   // 取消子容器的间距
+      font-size 0
       &-l
         display inline-block
         vertical-align top
@@ -195,7 +208,7 @@ export default {
               animation rotate 20s linear infinite
         .playing-lyric-wrapper
           width 80%
-          margin 30px auto 0 auto 
+          margin 30px auto 0 auto
           overflow hidden
           text-align center
           .playing-lyric
@@ -227,7 +240,7 @@ export default {
       .imgWrapper
         width 100%
         height 100%
-        .img
+        img
           border-radius 50%
           &.play
             animation rotate 10s linear infinite
@@ -252,7 +265,7 @@ export default {
         overflow hidden
         white-space nowrap
         font-size 12px
-        color msla(0, 0%, 100%, 0.3)
+        color hsla(0, 0%, 100%, 0.3)
     .control
       flex 0 0 px2rem(60px)
       width px2rem(60px)
@@ -272,10 +285,11 @@ export default {
         height 100%
         background linear-gradient(#902541, #902444)
 
-@keyframes rotate 
-  0% 
+
+
+@keyframes rotate
+  0%
     transform rotate(0)
   100%
     transform rotate(360deg)
-
 </style>
