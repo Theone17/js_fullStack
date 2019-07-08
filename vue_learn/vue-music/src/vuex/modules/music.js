@@ -29,7 +29,7 @@ const mutations = {
 }
 
 const actions = {
-  selectPlaySong ({ commit, state }, song) {
+  selectPlaySong ({ commit, state}, song) {
     let playlist = state.playList.slice()
     let currentIndex = state.currentIndex
     // 查找当前列表中是否有待插入的歌曲并返回其索引
@@ -41,6 +41,7 @@ const actions = {
       playlist = [...playlist, song]
       currentIndex = playlist.length - 1
     }
+
     commit(types.SET_PLAYLIST, playlist)
     commit(types.SET_CURRENT_INDEX, currentIndex)
     commit(types.SET_PLAYING, true)
@@ -56,11 +57,17 @@ const actions = {
     }
     commit(types.SET_PLAYLIST, playlist)
   },
-  // 保存历史
+  // 保存播放历史
   savePlayHistory ({ commit, state }, song) {
     let playHistory = state.playHistory.slice()
     playHistory = [...playHistory, song]
     commit(types.SAVE_PLAY_HISTORY, playHistory)
+  },
+  // 保存喜欢列表
+  saveFavoriteList ({ commit, state, }, song) {
+    let favoriteList = state.favoriteList.slice()
+    favoriteList = [...favoriteList, song]
+    commit(types.SAVE_FAVORITE_LIST, favoriteList)
   }
 }
 

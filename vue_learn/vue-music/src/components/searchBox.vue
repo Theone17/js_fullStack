@@ -32,11 +32,11 @@ export default {
       this.$refs.query.blur()
     }
   },
-  created() {
+  created () {
     this.$watch('query', debounce((newQuery) => {
       this.$emit('query', newQuery)
     }))
-  },
+  }
 }
 </script>
 <style lang='stylus' scoped>

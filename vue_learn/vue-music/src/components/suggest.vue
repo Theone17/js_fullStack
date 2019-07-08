@@ -1,7 +1,8 @@
 <template>
-  <v-scroll ref="suggest"
-    class="suggest" 
-    :data="result" 
+  <v-scroll
+    ref="suggest"
+    class="suggest"
+    :data="result"
     :pullup="pullup"
     :beforeScroll="beforeScroll"
     @scrollToEnd="searchMore"
@@ -24,10 +25,13 @@
   </v-scroll>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import scroll from '@/components/scroll'
+// import load from '@/components/load'
 import api from '@/api'
+
 const limit = 20
+
 export default {
   name: 'suggest',
   props: {
@@ -36,7 +40,7 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       page: 1,
       pullup: true,
@@ -45,11 +49,8 @@ export default {
       result: []
     }
   },
-  components: {
-    "v-scroll": scroll
-  },
   methods: {
-    refresh () {
+    refresh() {
       this.$refs.suggest.refresh()
     },
     fetchResult(page) {
@@ -60,55 +61,56 @@ export default {
       }
       api.MusicSearch(params).then(res => {
         if (res.code === 200) {
-          // console.log(res)
           this.result = [...this.result, ...res.result.songs]
-          // 检验服务器上的数据是否取完
           this._checkMore(res.result)
         }
       })
     },
-    search () {
-      // 获取第一页的二十条数据
+    search() {
       this.page = 1
       this.hasMore = true
       this.$refs.suggest.scrollTo(0, 0)
       this.result = []
       this.fetchResult(this.page)
     },
-    searchMore () {
+    searchMore() {
       if (!this.hasMore) {
         return
       }
       this.page++
       this.fetchResult(this.page)
     },
-    listScroll () {
+    listScroll() {
       this.$emit('listScroll')
     },
-    getDisplayName (item) {
-      return `${item.name}-${item.artists[0] && item.artists[0].name}`
-    },
-    selectItem (item) {
+    selectItem(item) {
       this.$emit('select', item)
     },
-    _checkMore (data) {
+    getDisplayName(item) {
+      return `${item.name}-${item.artists[0] && item.artists[0].name}`
+    },
+    _checkMore(data) {
       if (data.songs.length < 12 || ((this.page - 1) * limit) >= data.songCount) {
         this.hasMore = false
       }
-    }
+    },
   },
   watch: {
-    query (newQuery) {
+    query(newQuery) {
       if (!newQuery) {
         return
       }
       this.search(newQuery)
     }
+  },
+  components: {
+    'v-scroll': scroll,
+    // 'loading': load,
   }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped lang="stylus">
 @import "../assets/css/function.styl"
 .suggest 
   height 100%
