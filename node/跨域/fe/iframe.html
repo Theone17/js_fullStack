@@ -7,19 +7,23 @@
   <title>Document</title>
 </head>
 <body>
-  <iframe src="http://localhost:9999/" id="ifWindow" frameborder="0"></iframe>
-  <div>这是fe/iframe.html</div>
+  <iframe src="http://localhost:9999/"
+  id="ifWindow"
+   frameborder="0"></iframe>
+  <div>这是 fe/irfame.html </div>
   <script>
-    // 
-    window.onload = function() {
-      const ifWindow = document.getElementById('ifWindow');
-      const targetWindow = ifWindow.contentWindow;
-      // 窗口.postMessage('消息', '源')
-      targetWindow.postMessage('name1', 'http://localhost:9999');
-      window.addEventListener('message', function(e) {
-        console.log('请求得到的结果', e.data);
-      })
-    }
+  // 
+  window.onload = function() {
+    const ifWindow = document
+    .getElementById('ifWindow');
+    const targetWindow = ifWindow.contentWindow;
+    // 窗口.postMessage('消息', '源')
+    targetWindow.postMessage('name1',
+    'http://localhost:9999');
+    window.addEventListener('message', function(e) {
+      console.log('请求得到的结果', e.data);
+    });
+  }
   </script>
 </body>
 </html>
