@@ -47,3 +47,6 @@
 ## question7
   # __proto__ 和 prototype 关联
   __proto__是每一个实例都有的属性，可以访问[prototype]属性，实例的__proto__与其构造函数的prototype指向的是同一个对象
+
+## question10
+  # 事件委托
