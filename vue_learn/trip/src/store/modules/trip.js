@@ -1,4 +1,5 @@
-import * as types from '../mutations-types';
+import * as types from '../mutations-types'
+
 export default {
   state: {
     user: null,

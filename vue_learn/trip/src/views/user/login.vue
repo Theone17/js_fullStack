@@ -2,12 +2,12 @@
   <div class="login">
     <div class="login-bg">
       <h1 class="login-title">
-        <img src="../../assets/img/logo.png" alt />
+        <img src="../../assets/img/logo.png" alt="">
       </h1>
       <md-field class="login-input">
-        <md-input-item 
-          ref="name" 
-          title="手机号：" 
+        <md-input-item
+          ref="name"
+          title="手机号"
           placeholder="请输入手机号"
           v-model="user.name"
           type="phone"
@@ -15,10 +15,10 @@
         <md-input-item
           v-model="user.password"
           type="password"
-          ref="id" 
-          title="密码：" 
+          ref="id"
+          title="密码"
           placeholder="请输入密码"
-        ></md-input-item>
+          ></md-input-item>
       </md-field>
       <div class="login-btn">
         <span @click="loginOnClick">
@@ -31,9 +31,8 @@
 </template>
 
 <script>
-import { Toast } from 'mand-mobile';
-import { mapActions } from 'vuex';
-
+import { Toast } from 'mand-mobile'
+import { mapActions } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -47,7 +46,7 @@ export default {
   },
   methods: {
     loginOnClick () {
-      this.loginAjax();
+      this.loginAjax()
     },
     loginAjax() {
       let params = {
@@ -55,18 +54,18 @@ export default {
         passWord: this.user.password
       }
       this.$http.post('/user', params).then(res => {
-        this.userData = res.data.data;
-        let tmpUser = JSON.stringify(this.userData);
-        console.log(res.data.data);
-        localStorage.setItem('user', tmpUser);
-        // 存到vuex里面
-        this.setUser(this.userData);
-        Toast.succeed(`欢迎回来, ${this.userData.name}`, 1500);
-        this.$router.push({path: '/trip'});
+        this.userData = res.data.data
+        let tmpUser = JSON.stringify(this.userData)
+        console.log(res.data.data)
+        localStorage.setItem('user', tmpUser)
+        //存到vuex里面
+        this.setUser(this.userData)
+        Toast.succeed(`欢迎回来，${this.userData.name}`, 1500)
+        this.$router.push({path: '/trip'})
       })
     },
     ...mapActions(['setUser', 'setUserData'])
-  },
+  }
 }
 </script>
 
@@ -109,7 +108,6 @@ export default {
 .login
   .md-field
     background transparent
-    // : 不兼容IE浏览器
   .md-field-item-content:before
     background #000
   .md-field-item-title
@@ -122,3 +120,4 @@ export default {
     height 50px
     font-size 22px
 </style>
+

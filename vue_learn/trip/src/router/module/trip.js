@@ -1,5 +1,3 @@
-import trip from '../../store/modules/trip';
-
 const tripRoutes = [
   {
     path: '/trip',
@@ -19,5 +17,6 @@ const tripRoutes = [
       }
     ]
   }
-];
-export default tripRoutes;
+]
+
+export default tripRoutes

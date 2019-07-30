@@ -36,9 +36,9 @@ export default {
   },
   methods: {
     tripStartOnClick() {
-      this.$router.push({ name: 'Map', params: {tripType: this.TripWay} })
+      this.$router.push({ name: 'Map', params: { tripType: this.TripWay}})
     }
-  },
+  }
 }
 </script>
 
@@ -49,7 +49,7 @@ export default {
   position relative
   .trip-bg 
     width 100%
-    height 100%
+    height 100vh
     position absolute
     top 0
     left 0
@@ -70,7 +70,7 @@ export default {
     margin 50px auto
     border 8px dashed #c5d1d3
     border-bottom none
-    p:nth-child(1)
+    p:nth-child(1) 
       text-align center
       margin-top 80px
       color #4e4956
@@ -82,13 +82,13 @@ export default {
       text-align center
       margin-top 35px
       color #4e4956
-      font-size 130px
+      font-size 14px
     
     p:nth-child(3) 
       text-align center
       margin-top 35px
       color #9a9b9b
-      font-size 28px
+      font-size 14px
       cursor pointer
       text-decoration underline
     
