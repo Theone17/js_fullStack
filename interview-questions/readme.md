@@ -50,3 +50,41 @@
 
 ## question10
   # 事件委托
+
+## question13
+  # get和post请求在缓存方面的区别
+  get请求类似于查找的过程，用户获取数据可以不用每次都与数据库连接，所以可以使用缓存
+  post不同，post一般做的是修改和删除数据的工作，所以必须和数据库交互，不能使用缓存
+  因此get请求更适合于请求缓存
+  post：加密传输
+
+## question14 url长度限制
+  http协议并没有限制url的长度，是浏览器或者web浏览器做了url长度的限制，并且只针对与get请求做了限制
+    IE : 2803
+    Firefox:65536
+    Chrome:8182
+    Safari:80000
+    Opera:190000
+
+## question15 前端事件流
+  捕获、目标、冒泡
+  在DOM标准的事件模型中，事件流包括下面几个阶段：
+    1. 事件捕获阶段
+    2. 处于目标阶段
+    3. 事件冒泡阶段
+  addEventListener第三个参数为true时捕获，false时冒泡，默认是false （IE只支持事件冒泡）
+
+## question16 图片懒加载和预加载的区别
+  预加载：提前加载图片，当用户需要查看图片时，可直接从本地缓存中渲染
+  懒加载：作为服务器的前端优化减少请求或延迟请求
+  （懒加载对服务器有一定的缓解压力作用，预加载会增加服务器的压力）
+
+## question17 js中的各种位置
+  clientHeight: 表示可视区域的高度，不包含border和滚动条
+  offsetHeight: 表示可视区域的高度，包含border和滚动条
+  scrollHeight: 表示所有区域的高度，包含因为滚动被隐藏的部分
+  clientTop: 表示边框border的厚度，在未指定的情况下一般为0
+  scrollTop：滚动后被隐藏的高度
+
+## question18 js拖拽功能的实现
+  
